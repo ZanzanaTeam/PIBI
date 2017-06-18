@@ -1,0 +1,4 @@
+services:
+#    esprit_projet_bi.example:
+#        class: Esprit\ProjetBiBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
