@@ -1,3 +1,0 @@
-esprit_projet_bi_homepage:
-    path:     /
-    defaults: { _controller: EspritProjetBiBundle:Default:index }

@@ -1,5 +1,6 @@
 esprit_projet_bi:
-    resource: "@EspritProjetBiBundle/Resources/config/routing.yml"
+    resource: "@EspritProjetBiBundle/Controller/"
+    type:     annotation
     prefix:   /
 
 fos_user:
