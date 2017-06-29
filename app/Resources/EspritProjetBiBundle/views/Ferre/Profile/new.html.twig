@@ -39,7 +39,7 @@
             $('#file').fileupload({
                 forceIframeTransport: true,
                 dataType: 'json',
-                url: '{{path('admin_surface_validation')}}',
+                url: '{{path('admin_surface_profile')}}',
                 done: function ( e, data ) {
                     $( '#message' ).removeClass('hidden');
                     if( typeof data.result["error"] == 'undefined' )
@@ -59,65 +59,72 @@
 {% endblock javascripts %}
 
  {% block page_title %}
-     <h1>Réseau de surface<small></small></h1>
+     <h1>Réseau de ferre<small></small></h1>
  {% endblock page_title %}
 
 
 {% block breadcrumb %}
     <li><a href="{{ path('esprit_projetbi_dashboard_index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="">Surface</li>
-    <li class="active">Importer des validations</li>
+    <li class=""><a href="{{ path('admin_ferre_profile_list') }}">Ferre</a></li>
+    <li class="active">Importer des profils horaires</li>
 {% endblock breadcrumb %}
 
 {% block content %}
-<div class="row">
-    <!-- left column -->
-    <div class="col-md-12">
-        <div class="" id="message"></div>
-        <!-- general form elements -->
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <div class="" id="message"></div>
+            <!-- general form elements -->
 
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Validations</h3>
-            </div>
-
-            <form action="{{path('admin_surface_validation')}}" class="dropzone" id="dropzone_example" enctype="multipart/form-data">
-                <div class="fallback">
-                    <input id="file" name="file" type="file" accept="text/csv" />
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Profils horaires</h3>
                 </div>
-            </form>
 
-            <div id="dze_info" class="hidden">
-
-                <br />
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="panel-title">{{'import.form.upload.list'|trans}}</div>
+                <form action="{{path('admin_ferre_profile')}}" class="dropzone" id="dropzone_example" enctype="multipart/form-data">
+                    <div class="form-control">
+                        <label for="semestre">Semestre:</label>
+                        <select name="semestre" id="semestre">
+                            <option value="1"> Semestre 1</option>
+                            <option value="2"> Semestre 2</option>
+                        </select>
                     </div>
+                    <div class="fallback">
+                        <input id="file" name="file" type="file" />
+                    </div>
+                </form>
 
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th width="40%">{{'filename'|trans}}</th>
-                            <th width="15%">{{'taile'|trans}}</th>
-                            <th width="15%">{{'type'|trans}}</th>
-                            <th>{{'status'|trans}}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <td colspan="4"></td>
-                        </tr>
-                        </tfoot>
-                    </table>
+                <div id="dze_info" class="hidden">
+
+                    <br />
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">{{'import.form.upload.list'|trans}}</div>
+                        </div>
+
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th width="40%">{{'filename'|trans}}</th>
+                                <th width="15%">{{'taile'|trans}}</th>
+                                <th width="15%">{{'type'|trans}}</th>
+                                <th>{{'status'|trans}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="4"></td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
+                <!--[if !IE]><!-->
             </div>
-            <!--[if !IE]><!-->
+            <!-- /.box -->
         </div>
-        <!-- /.box -->
     </div>
-</div>
 
 {% endblock content %}

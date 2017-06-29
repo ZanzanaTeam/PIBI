@@ -1,1 +1,83 @@
 {% extends 'base.html.twig' %}
+
+ {% block page_title %}
+     <h1>Réseau de ferre<small></small></h1>
+ {% endblock page_title %}
+
+
+{% block breadcrumb %}
+<li><a href="{{ path('esprit_projetbi_dashboard_index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+<li class="">Ferre</li>
+<li class="active">Liste des validations</li>
+{% endblock breadcrumb %}
+
+
+ {% block javascripts %}
+         {{ parent() }}
+         <script>
+             $(function () {
+                 $('#data-validation').DataTable({
+                     "paging": true,
+                     "lengthChange": false,
+                     "searching": false,
+                     "ordering": true,
+                     "info": true,
+                     "autoWidth": false
+                 });
+             });
+         </script>
+{% endblock javascripts %}
+
+{% block content %}
+     <div class="row">
+         <div class="col-xs-12">
+             <div class="box">
+                 <div class="box-header">
+                     <div class="pull-left">
+                     <h3 class="box-title">Liste des validations</h3>
+                     </div>
+                     <div class="pull-right">
+                         <a href="{{ path('admin_ferre_validation') }}" class="btn btn-primary">
+                             Nouveau
+                         </a>
+                     </div>
+                 </div>
+                 <!-- /.box-header -->
+                 <div class="box-body">
+                     <table id="data-validation" class="table table-bordered table-hover">
+                         <thead>
+                         <tr>
+                             <th>Imorté le</th>
+                             <th>Nom du fichier</th>
+                             <th>Imorté par</th>
+                             <th>statut</th>
+                             <th>Nbligne valide</th>
+                             <th>Nbligne invalide</th>
+                             <th>Erreurs</th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                         {% if validations is defined and validations|length >0 %}
+                             {% for validation in validations %}
+                                 <tr>
+                                     <td>{{ validation.importedAt|date('Y-m-d H:i:s') }}</td>
+                                     <td>{{ validation.filename }}</td>
+                                     <td>{{ validation.user }}</td>
+                                     <td>{{ validation.statusName }}</td>
+                                     <td>{{ validation.nbLines }}</td>
+                                     <td>{{ validation.nbErrors }}</td>
+                                     <td>{{ validation.statusText|raw }}</td>
+                                 </tr>
+                             {% endfor %}
+                         {% endif %}
+                         </tbody>
+                     </table>
+                 </div>
+                 <!-- /.box-body -->
+             </div>
+             <!-- /.box -->
+
+    </div>
+    <!-- /.col -->
+  </div>
+{% endblock content %}

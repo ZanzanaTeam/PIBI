@@ -8,8 +8,8 @@
 namespace Esprit\ProjetBiBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Esprit\ProjetBiBundle\Entity\ProfileSurface;
-use Esprit\ProjetBiBundle\Entity\ValidationSurface;
+use Esprit\ProjetBiBundle\Entity\ProfileFerre;
+use Esprit\ProjetBiBundle\Entity\ValidationFerre;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
@@ -18,23 +18,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class SurfaceController
+ * Class FerreController
  *
  * @package Esprit\ProjetBiBundle\Controller
- * @Route("/surface")
+ * @Route("/ferre")
  */
-class SurfaceController extends Controller
+class FerreController extends Controller
 {
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @route ("/validation/new", name="admin_surface_validation")
+     * @route ("/validation/new", name="admin_ferre_validation")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function newValidationAction(Request $request)
     {
         $path = $this->container->getParameter('path_import_files');
-        $path .= 'surface/validation/';
+        $path .= 'ferre/validation/';
         $max_file_size = $this->container->getParameter('max_file_size');
         $accepted_file = ['csv','CSV'];
         $resp          = [];
@@ -53,11 +53,11 @@ class SurfaceController extends Controller
                         $file->move($path, $filename);
                         //database
                         $em         = $this->getDoctrine()->getManager();
-                        $validation = new ValidationSurface();
+                        $validation = new ValidationFerre();
                         $validation->setFilename($filename);
                         $validation->setUser($this->getUser());
                         $validation->setImportedAt(new \DateTime('now'));
-                        $validation->setStatus(ValidationSurface::WAITING); //waiting
+                        $validation->setStatus(ValidationFerre::WAITING); //waiting
                         $em->persist($validation);
                         $em->flush();
                     } else {
@@ -74,7 +74,7 @@ class SurfaceController extends Controller
         }
 
         return $this->render(
-            'EspritProjetBiBundle:Surface:Validation/new.html.twig',
+            'EspritProjetBiBundle:Ferre:Validation/new.html.twig',
             ['max_file_size' => $max_file_size, 'accepted_file' => implode(',',$accepted_file)]
         );
 
@@ -82,7 +82,7 @@ class SurfaceController extends Controller
 
 
     /**
-     * @route ("/validation/list", name="admin_surface_validation_list")
+     * @route ("/validation/list", name="admin_ferre_validation_list")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -90,16 +90,16 @@ class SurfaceController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $validations = $em->getRepository(ValidationSurface::class)->findBy([], ['importedAt' => 'DESC']);
+        $validations = $em->getRepository(ValidationFerre::class)->findBy([], ['importedAt' => 'DESC']);
 
         return $this->render(
-            'EspritProjetBiBundle:Surface:Validation/index.html.twig',
+            'EspritProjetBiBundle:Ferre:Validation/index.html.twig',
             ['validations' => $validations]
         );
     }
 
     /**
-     * @route ("/profile/list", name="admin_surface_profile_list")
+     * @route ("/profile/list", name="admin_ferre_profile_list")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -107,14 +107,14 @@ class SurfaceController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $horaires = $em->getRepository(ProfileSurface::class)->findBy([], ['importedAt' => 'DESC']);
+        $horaires = $em->getRepository(ProfileFerre::class)->findBy([], ['importedAt' => 'DESC']);
 
-        return $this->render('EspritProjetBiBundle:Surface:Profile/index.html.twig', ['horaires' => $horaires]);
+        return $this->render('EspritProjetBiBundle:Ferre:Profile/index.html.twig', ['horaires' => $horaires]);
     }
 
 
     /**
-     * @Route ("/profile/new", name="admin_surface_profile")
+     * @Route ("/profile/new", name="admin_ferre_profile")
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -122,7 +122,7 @@ class SurfaceController extends Controller
     public function newprofileAction(Request $request)
     {
         $path = $this->container->getParameter('path_import_files');
-        $path .= 'surface/validation/';
+        $path .= 'ferre/validation/';
         $max_file_size = $this->container->getParameter('max_file_size');
         $accepted_file = ['csv','CSV'];
         $resp          = [];
@@ -147,11 +147,11 @@ class SurfaceController extends Controller
                     $file->move($path, $filename);
                     //database
                     $em         = $this->getDoctrine()->getManager();
-                    $validation = new ValidationSurface();
+                    $validation = new ValidationFerre();
                     $validation->setFilename($filename);
                     $validation->setUser($this->getUser());
                     $validation->setImportedAt(new \DateTime('now'));
-                    $validation->setStatus(ValidationSurface::WAITING); //waiting
+                    $validation->setStatus(ValidationFerre::WAITING); //waiting
                     $em->persist($validation);
                     $em->flush();
                 } else {
@@ -169,7 +169,7 @@ class SurfaceController extends Controller
         }
 
         return $this->render(
-            'EspritProjetBiBundle:Surface:Profile/new.html.twig',
+            'EspritProjetBiBundle:Ferre:Profile/new.html.twig',
             ['max_file_size' => $max_file_size, 'accepted_file' => implode(',',$accepted_file)]
         );
     }

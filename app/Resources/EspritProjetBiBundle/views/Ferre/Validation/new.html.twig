@@ -39,7 +39,7 @@
             $('#file').fileupload({
                 forceIframeTransport: true,
                 dataType: 'json',
-                url: '{{path('admin_surface_validation')}}',
+                url: '{{path('admin_ferre_validation')}}',
                 done: function ( e, data ) {
                     $( '#message' ).removeClass('hidden');
                     if( typeof data.result["error"] == 'undefined' )
@@ -59,13 +59,13 @@
 {% endblock javascripts %}
 
  {% block page_title %}
-     <h1>Réseau de surface<small></small></h1>
+     <h1>Réseau de ferré<small></small></h1>
  {% endblock page_title %}
 
 
 {% block breadcrumb %}
     <li><a href="{{ path('esprit_projetbi_dashboard_index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="">Surface</li>
+    <li class="">Ferré</li>
     <li class="active">Importer des validations</li>
 {% endblock breadcrumb %}
 
@@ -81,9 +81,9 @@
                 <h3 class="box-title">Validations</h3>
             </div>
 
-            <form action="{{path('admin_surface_validation')}}" class="dropzone" id="dropzone_example" enctype="multipart/form-data">
+            <form action="{{path('admin_ferre_validation')}}" class="dropzone" id="dropzone_example" enctype="multipart/form-data">
                 <div class="fallback">
-                    <input id="file" name="file" type="file" accept="text/csv" />
+                    <input id="file" name="file" type="file" />
                 </div>
             </form>
 

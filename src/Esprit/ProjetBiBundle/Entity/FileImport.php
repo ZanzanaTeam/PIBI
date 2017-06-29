@@ -41,21 +41,18 @@ class FileImport
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * @var string
      *
      * @ORM\Column(name="filename", type="string", length=255)
      */
     private $filename;
-
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="importedAt", type="datetime")
      */
     private $importedAt;
-
     /**
      * 0: waiting
      * 1: syntaxe validation
@@ -73,23 +70,63 @@ class FileImport
     /**
      * @var int
      *
-     * @ORM\Column(name="nbLines", type="integer")
+     * @ORM\Column(name="nbLines", type="integer", nullable=true, options={"default":0})
      */
     private $nbLines;
-
     /**
      * @var int
      *
-     * @ORM\Column(name="nbErrors", type="integer")
+     * @ORM\Column(name="nbErrors", type="integer", nullable=true, options={"default":0})
      */
     private $nbErrors;
-
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true))
      **/
     private $user;
 
+    public function getStatusName()
+    {
+        $list = self::getListStatus();
+        if (!in_array($this->getStatus(), $list)) {
+            return 'n-a';
+        }
+
+        return $list[$this->getStatus()];
+    }
+
+    public static function getListStatus()
+    {
+        return [
+            self::WAITING  => 'En attente',
+            self::FINISHED => 'Fini',
+            self::ERROR    => 'Erreur',
+        ];
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     *
+     * @return $this
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
 
     /**
      * Get id
@@ -239,30 +276,6 @@ class FileImport
     public function setStatusText($statusText)
     {
         $this->statusText = $statusText;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return integer
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * Set status
-     *
-     * @param integer $status
-     *
-     * @return $this
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
 
         return $this;
     }

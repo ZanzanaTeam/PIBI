@@ -27,4 +27,30 @@ class ProfileFerre extends FileImport
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="integer", length=3)
+     */
+    protected $semestre;
+
+    /**
+     * @return \DateTime
+     */
+    public function getSemestre()
+    {
+        return $this->semestre;
+    }
+
+    /**
+     * @param \DateTime $semestre
+     *
+     * @return ProfileSurface
+     */
+    public function setSemestre($semestre)
+    {
+        $this->semestre = $semestre;
+
+        return $this;
+    }
 }

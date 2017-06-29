@@ -10,3 +10,5 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: ThisTokenIsNotSoSecretChangeIt
+    path_import_files: '%kernel.root_dir%/../web/uploads/'
+    max_file_size: 20
