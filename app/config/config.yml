@@ -30,6 +30,44 @@ framework:
     fragments: ~
     http_method_override: true
 
+monolog:
+    handlers:
+        main:
+            type:           rotating_file
+            max_files:      3
+            path:           '%kernel.logs_dir%/%kernel.environment%.all.log'
+            level:          info
+            channels:       [!doctrine, !security]
+        console:
+            type:                console
+            path:           '%kernel.logs_dir%/%kernel.environment%.console.log'
+            verbosity_levels:
+                VERBOSITY_NORMAL:       WARNING
+                VERBOSITY_VERBOSE:      NOTICE
+                VERBOSITY_VERY_VERBOSE: INFO
+                VERBOSITY_DEBUG:        DEBUG
+        doctrine:
+            type:           rotating_file
+            max_files:      10
+            path:           '%kernel.logs_dir%/%kernel.environment%.doctrine.log'
+            channels:       doctrine
+        login:
+            type:           rotating_file
+            max_files:      10
+            path:           '%kernel.logs_dir%/%kernel.environment%.auth.log'
+            level:          info
+            channels:       security
+
+        main_error:
+            type:           fingers_crossed
+            action_level:   error
+            handler:        streamed_error
+        streamed_error:
+            type:           rotating_file
+            max_files:      10
+            path:           '%kernel.logs_dir%/%kernel.environment%.error.log'
+            level:          info
+
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'
