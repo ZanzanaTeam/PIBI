@@ -51,9 +51,9 @@
                              <th>Nom du fichier</th>
                              <th>Imorté par</th>
                              <th>statut</th>
+                             <th>Nb Total Lignes</th>
                              <th>Nbligne valide</th>
                              <th>Nbligne invalide</th>
-                             <th>Erreurs</th>
                          </tr>
                          </thead>
                          <tbody>
@@ -65,8 +65,8 @@
                                      <td>{{ validation.user }}</td>
                                      <td>{{ validation.statusName }}</td>
                                      <td>{{ validation.nbLines }}</td>
+                                     <td>{{ validation.nbInserred }}</td>
                                      <td>{{ validation.nbErrors }}</td>
-                                     <td>{{ validation.statusText|raw }}</td>
                                  </tr>
                              {% endfor %}
                          {% endif %}

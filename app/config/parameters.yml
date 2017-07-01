@@ -10,6 +10,6 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: ThisTokenIsNotSoSecretChangeIt
-#    path_import_files: '%kernel.root_dir%/../web/uploads/'
-    path_import_files: '/home/tritux/BI/PBI/talend/import/'
+    path_import_files: '%kernel.root_dir%/../web/uploads/'
+#    path_import_files: '/home/tritux/BI/PBI/talend/import/'
     max_file_size: 100

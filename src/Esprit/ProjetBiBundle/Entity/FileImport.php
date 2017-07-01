@@ -70,15 +70,21 @@ class FileImport
     /**
      * @var int
      *
-     * @ORM\Column(name="nbLines", type="integer", nullable=true, options={"default":0})
+     * @ORM\Column(name="nbLines", type="integer", nullable=false, options={"default":0})
      */
-    private $nbLines;
+    private $nbLines = 0;
     /**
      * @var int
      *
-     * @ORM\Column(name="nbErrors", type="integer", nullable=true, options={"default":0})
+     * @ORM\Column(name="nbInserred", type="integer", nullable=false, options={"default":0})
      */
-    private $nbErrors;
+    private $nbInserred = 0;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nbErrors", type="integer", nullable=false, options={"default":0})
+     */
+    private $nbErrors = 0;
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true))
@@ -88,7 +94,7 @@ class FileImport
     public function getStatusName()
     {
         $list = self::getListStatus();
-        if (!in_array($this->getStatus(), $list)) {
+        if (!array_key_exists($this->getStatus(), $list)) {
             return 'n-a';
         }
 
@@ -206,6 +212,26 @@ class FileImport
     public function setNbLines($nbLines)
     {
         $this->nbLines = $nbLines;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNbInserred()
+    {
+        return $this->nbInserred;
+    }
+
+    /**
+     * @param int $nbInserred
+     *
+     * @return FileImport
+     */
+    public function setNbInserred($nbInserred)
+    {
+        $this->nbInserred = $nbInserred;
 
         return $this;
     }
